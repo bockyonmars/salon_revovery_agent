@@ -1,0 +1,28 @@
+# Dependencies and build outputs
+node_modules/
+dist/
+dist-server/
+coverage/
+*.tsbuildinfo
+
+# Local environment and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+
+# Runtime state and logs
+*.log
+*.db
+*.sqlite
+*.sqlite3
+.DS_Store
+
+# Local tooling and generated evidence
+.superdesign/tmp/
+release-evidence/
+.terraform/
+*.tfstate
+*.tfstate.*

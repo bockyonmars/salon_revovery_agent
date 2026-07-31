@@ -1,0 +1,52 @@
+aws_region      = "eu-west-2"
+container_image = "123456789012.dkr.ecr.eu-west-2.amazonaws.com/salon-recovery@sha256:replace_with_64_hex_characters"
+certificate_arn = "arn:aws:acm:eu-west-2:123456789012:certificate/replace-me"
+alarm_email     = "operations@example.com"
+
+# First apply: false. Set true only after the one-off migration task succeeds.
+services_enabled = false
+
+runtime_environment = {
+  AUTH_JWKS_URL                      = "https://tenant.eu.auth0.com/.well-known/jwks.json"
+  AUTH_ISSUER                        = "https://tenant.eu.auth0.com/"
+  AUTH_AUDIENCE                      = "https://api.example.com"
+  AUTH_MFA_REQUIRED                  = "true"
+  AUTH_MFA_REQUIRED_ROLES            = "owner,manager"
+  BILLING_ENFORCEMENT_ENABLED        = "true"
+  DASHBOARD_PUBLIC_ORIGIN            = "https://operations.example.com"
+  ONBOARDING_ENFORCEMENT_ENABLED     = "true"
+  # Keep false until the voice readiness gate and controlled SIP sandbox evidence pass.
+  OPENAI_REALTIME_SIP_ENABLED        = "false"
+  OPENAI_REALTIME_MODEL              = "gpt-realtime-2.1"
+  OPENAI_SIP_DESTINATION_HEADER      = "to"
+  PUBLIC_BOT_PROTECTION_ENABLED      = "true"
+  SQUARE_APPLICATION_ID              = "replace-public-id"
+  SQUARE_ENVIRONMENT                 = "production"
+  SQUARE_OAUTH_REDIRECT_URI          = "https://operations.example.com/oauth/square/callback"
+  SQUARE_WEBHOOK_NOTIFICATION_URL    = "https://operations.example.com/webhooks/square"
+  STRIPE_PRICE_ID                    = "price_replace"
+  BILLING_SUCCESS_URL                = "https://operations.example.com/app?billing=success"
+  BILLING_CANCEL_URL                 = "https://operations.example.com/app?billing=cancelled"
+  TURNSTILE_EXPECTED_HOSTNAMES       = "operations.example.com"
+  TWILIO_ACCOUNT_SID                 = "AC_replace"
+  TWILIO_FROM_NUMBER                 = "+15555550100"
+  TWILIO_INBOUND_WEBHOOK_URL         = "https://operations.example.com/webhooks/twilio/inbound"
+  TWILIO_STATUS_CALLBACK_URL         = "https://operations.example.com/webhooks/twilio/status"
+  TWILIO_VOICE_STATUS_WEBHOOK_URL    = "https://operations.example.com/webhooks/twilio/voice/status"
+  POSTMARK_FROM_EMAIL                = "reports@example.com"
+}
+
+# Create these secrets separately; provide ARNs only. Never put secret values in tfvars.
+runtime_secret_arns = {
+  CREDENTIAL_ENCRYPTION_KEY_BASE64 = "arn:aws:secretsmanager:eu-west-2:123456789012:secret:salon/credential-key-replace"
+  OPENAI_API_KEY                   = "arn:aws:secretsmanager:eu-west-2:123456789012:secret:salon/openai-replace"
+  # Required before OPENAI_REALTIME_SIP_ENABLED can be changed to true.
+  # OPENAI_WEBHOOK_SECRET          = "arn:aws:secretsmanager:eu-west-2:123456789012:secret:salon/openai-webhook-replace"
+  POSTMARK_SERVER_TOKEN            = "arn:aws:secretsmanager:eu-west-2:123456789012:secret:salon/postmark-replace"
+  SQUARE_APPLICATION_SECRET        = "arn:aws:secretsmanager:eu-west-2:123456789012:secret:salon/square-app-replace"
+  SQUARE_WEBHOOK_SIGNATURE_KEY     = "arn:aws:secretsmanager:eu-west-2:123456789012:secret:salon/square-webhook-replace"
+  STRIPE_SECRET_KEY                = "arn:aws:secretsmanager:eu-west-2:123456789012:secret:salon/stripe-replace"
+  STRIPE_WEBHOOK_SECRET            = "arn:aws:secretsmanager:eu-west-2:123456789012:secret:salon/stripe-webhook-replace"
+  TURNSTILE_SECRET_KEY             = "arn:aws:secretsmanager:eu-west-2:123456789012:secret:salon/turnstile-replace"
+  TWILIO_AUTH_TOKEN                = "arn:aws:secretsmanager:eu-west-2:123456789012:secret:salon/twilio-replace"
+}

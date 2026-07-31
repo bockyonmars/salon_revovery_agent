@@ -1,0 +1,9 @@
+output "alb_dns_name" { value = aws_lb.main.dns_name }
+output "ecs_cluster_name" { value = aws_ecs_cluster.main.name }
+output "api_task_definition_arn" { value = aws_ecs_task_definition.service["api"].arn }
+output "application_subnet_ids" { value = values(aws_subnet.application)[*].id }
+output "application_security_group_id" { value = aws_security_group.application.id }
+output "rds_endpoint" { value = aws_db_instance.main.endpoint
+  sensitive = true }
+output "application_bucket" { value = aws_s3_bucket.application.id }
+output "alarm_topic_arn" { value = aws_sns_topic.alarms.arn }

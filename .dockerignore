@@ -1,0 +1,14 @@
+node_modules
+dist
+dist-server
+.git
+.github
+.superdesign
+deploy
+release-evidence
+server/**/*.test.ts
+*.log
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
